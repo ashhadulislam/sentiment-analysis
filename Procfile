@@ -1,1 +1,1 @@
-web: gunicorn doc_classifier_app.wsgi
+web: gunicorn doc_classifier_project.wsgi
