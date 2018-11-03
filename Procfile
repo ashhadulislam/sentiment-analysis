@@ -1,1 +1,1 @@
-web: gunicorn understood.wsgi
+web: gunicorn doc_classifier_app.wsgi
