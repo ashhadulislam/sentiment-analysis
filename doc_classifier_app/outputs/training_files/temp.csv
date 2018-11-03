@@ -1,0 +1,4 @@
+,text,sentiment
+0,This is just a sample bad statement,Negative
+1,This is just a sample good statement,Positive
+2,This is just a sample neutral statement,Neutral

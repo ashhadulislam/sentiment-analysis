@@ -1,0 +1,28 @@
+<body>
+    <div>
+        <h2><a href="/">Text Classifier</a></h2>
+    </div>
+    <div>
+        <div>
+            <div><h3><a href="/">Train Model</a></h2></div>
+            <div>
+            {% block train_content %}
+            {% endblock %}
+            </div>
+
+            <div><h3><a href="/">Test Model</a></h2></div>
+            <div>
+            {% block test_content %}
+            {% endblock %}
+            </div>
+
+            <div><h3><a href="/">Results</a></h2></div>
+            <div>
+            {% block test_result %}
+            {% endblock %}
+            </div>
+
+
+
+        </div>
+    </div>

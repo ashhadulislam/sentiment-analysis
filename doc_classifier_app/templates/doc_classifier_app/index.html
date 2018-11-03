@@ -1,0 +1,76 @@
+{% extends 'doc_classifier_app/base.html' %}
+
+{% block train_content %}
+
+<form action="/train/" method="post" enctype="multipart/form-data">
+
+    {% if model_list %}
+    Select the model/s that you want to train
+    <ul>
+        {% for model in model_list %}
+       <input type="checkbox" name="models" value={{model.name}}>{{model.name}}</br>
+        {% endfor %}
+    </ul>
+    {% else %}
+    	<div>No models so far</br></div>
+    {% endif %}
+
+
+    Select the training file:
+        <input type="file"  name="train_file" accept=".tsv, .csv" required/>
+        </br><button>Submit</button>        
+
+</form>
+{% endblock %}
+
+
+{% block test_content %}
+<form action="/test/" method="post" enctype="multipart/form-data">
+    <textarea id="text_input" name="text_input" placeholder="Paste news related to sports, business, entertainment, politics and tech to check the accuracy of trained classifier :)" style="width:300px;height:200px"></textarea></br>
+
+    Select the testing file:
+        <input type="file"  name="test_file" accept=".tsv, .csv"/>
+
+
+    {% if file_list %}
+    </br>Select the reference file
+    <ul>
+        {% for file in file_list %}
+    	  <input type="radio" name="test_reference_file" value={{file.name}}>{{file.name}}
+          {% for sentiment in file.sentiments %}_{{sentiment}}{% endfor %}
+
+
+        </br>
+        {% endfor %}
+    </ul>
+    {% else %}
+    	<div>No files so far</br></div>
+    {% endif %}
+
+    {% if model_list %}
+    Select the model/s that you want to use
+    <ul>
+        {% for model in model_list %}
+       <input type="checkbox" name="models" value={{model.name}}>{{model.name}}</br>
+        {% endfor %}
+    </ul>
+    {% else %}
+    	<div>No models so far</br></div>
+    {% endif %}
+
+    <button>Submit</button>
+</form>
+{% endblock %}
+
+{% block test_result %}
+
+The result</br>
+
+{{result_list | safe}}
+
+
+
+
+
+        
+{% endblock %}
