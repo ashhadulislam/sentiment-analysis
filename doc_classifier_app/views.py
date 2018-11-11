@@ -21,6 +21,7 @@ def index(request):
     # return HttpResponse("Hello, world. You're at the doc_classifier app index.")
 
 from .scripts.train import train_file_model
+
 def train(request):
 	if request.method == "POST":
 		print("In form sub",request.method,request.POST.getlist('models'))
@@ -37,6 +38,9 @@ def train(request):
 	return HttpResponse(template.render(context, request))
 
 from .scripts.test import test_model
+#to serve files as download
+from django.views.static import serve
+
 def test(request):
 	print("In form sub")
 
@@ -52,7 +56,7 @@ def test(request):
 		if 'test_file' in request.FILES:
 			test_file = request.FILES['test_file']
 
-		data_result_df,status=test_model(test_text,test_file,test_reference_file,models_list)
+		data_result_df,xls_file_path,status=test_model(test_text,test_file,test_reference_file,models_list)
 		
 
 
@@ -64,6 +68,14 @@ def test(request):
 			print("Error:status of test false")
 			context=constants.update_context()
 
+	#maybe, here we can check whether we got a result file in xls format
+	#if so, we can return the xls file
+	if xls_file_path!=None:
+		return serve(request, os.path.basename(xls_file_path), os.path.dirname(xls_file_path))
+
+
+
+	#the below part is when user entered only a line
 	template = loader.get_template('doc_classifier_app/index.html')
 	# return HttpResponse("Testing Completed")
 	return HttpResponse(template.render(context, request))

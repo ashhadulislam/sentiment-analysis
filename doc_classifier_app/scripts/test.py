@@ -50,7 +50,7 @@ def test_model(test_text,test_file_name,test_reference_file,models_list):
 		print("Getting text",len(test_text))
 		if len(test_text) < 20:
 			print("Please provide input large enough, Classifier can understand :)")
-			return None,False
+			return None,None,False
 		else:
 			print("Generating the dataframe from text")
 			d = {'Text': [test_text]}
@@ -68,7 +68,7 @@ def test_model(test_text,test_file_name,test_reference_file,models_list):
 
 	else:
 		print("What am i doing here")
-		return None,False
+		return None,None,False
 
 
 	#keep a backup of df
@@ -119,5 +119,39 @@ def test_model(test_text,test_file_name,test_reference_file,models_list):
 		print("will write output df to the following location",constants.output_results_location)
 		df_bkp.to_csv(constants.output_results_location+str(test_file_name)+"_results.csv")
 
+		#hold on, we will also write it to an excel
+
+		#add the sheet to a list of sheets
+		result_df_list=[]
+		result_df_list.append(df_bkp)
+
+		xls_name=constants.output_results_location+ "result.xlsx"
+		
+		from openpyxl import Workbook
+		from openpyxl.utils.dataframe import dataframe_to_rows
+		
+		# # create Workbook object
+		wb=Workbook()
+		print("loaded some workbook")
+		sheetnames=["result"]
+
+		for n,dataf in enumerate(result_df_list):
+			print("n is ",n)
+			print(dataf.head())
+			ws=wb.create_sheet(sheetnames[n])
+			for r in dataframe_to_rows(dataf, index=True, header=True):
+				ws.append(r)
+
+		print("going to save at",xls_name)
+
+		#remove the default sheet called "sheet"
+		wb.remove(wb.get_sheet_by_name('Sheet'))
+		wb.save(xls_name)
+
+		print("written to xls")
+		return df_bkp,xls_name,True
+
+
+
 	
-	return df_bkp,True
+	return df_bkp,None,True
