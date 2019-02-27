@@ -1,12 +1,24 @@
 import os
 import pandas as pd
+from pathlib import Path
 
 
-output_results_location="doc_classifier_app/outputs/results/"
-vectorlibs_location="doc_classifier_app/outputs/vectorlibs/"
-trained_models_location="doc_classifier_app/outputs/trained_models/"
-training_files_location="doc_classifier_app/outputs/training_files/"
-input_location="doc_classifier_app/inputs/"
+
+path_to_source=Path(Path(os.getcwd()))
+
+output_results_location=os.path.join(str(path_to_source), "doc_classifier_app/outputs/results/")
+vectorlibs_location=os.path.join(str(path_to_source),"doc_classifier_app/outputs/vectorlibs/")
+trained_models_location=os.path.join(str(path_to_source),"doc_classifier_app/outputs/trained_models/")
+training_files_location=os.path.join(str(path_to_source),"doc_classifier_app/outputs/training_files/")
+input_location=os.path.join(str(path_to_source),"doc_classifier_app/inputs/")
+
+
+
+# output_results_location="doc_classifier_app/outputs/results/"
+# vectorlibs_location="doc_classifier_app/outputs/vectorlibs/"
+# trained_models_location="doc_classifier_app/outputs/trained_models/"
+# training_files_location="doc_classifier_app/outputs/training_files/"
+# input_location="doc_classifier_app/inputs/"
 
 
 

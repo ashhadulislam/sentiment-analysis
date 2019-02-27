@@ -4,14 +4,43 @@ from pathlib import Path
 
 
 
-path_to_source=Path(Path(os.getcwd()))
 
-output_results_location=os.path.join(str(path_to_source), "doc_classifier_app/outputs/results/")
-vectorlibs_location=os.path.join(str(path_to_source),"doc_classifier_app/outputs/vectorlibs/")
-trained_models_location=os.path.join(str(path_to_source),"doc_classifier_app/outputs/trained_models/")
-training_files_location=os.path.join(str(path_to_source),"doc_classifier_app/outputs/training_files/")
-input_location=os.path.join(str(path_to_source),"doc_classifier_app/inputs/")
 
+# output_results_location=os.path.join(str(path_to_source), "doc_classifier_app/outputs/results/")
+# vectorlibs_location=os.path.join(str(path_to_source),"doc_classifier_app/outputs/vectorlibs/")
+# trained_models_location=os.path.join(str(path_to_source),"doc_classifier_app/outputs/trained_models/")
+# training_files_location=os.path.join(str(path_to_source),"doc_classifier_app/outputs/training_files/")
+# input_location=os.path.join(str(path_to_source),"doc_classifier_app/inputs/")
+
+
+output_results_location=None
+vectorlibs_location=None
+trained_models_location=None
+training_files_location=None
+input_location=None
+
+
+
+
+def set_dir_locations():
+    global output_results_location
+    global vectorlibs_location
+    global trained_models_location
+    global training_files_location
+    global input_location
+
+    path_to_source=Path(Path(os.getcwd()))
+    
+
+    output_results_location=os.path.join(str(path_to_source), "doc_classifier_app/outputs/results/")
+    vectorlibs_location=os.path.join(str(path_to_source),"doc_classifier_app/outputs/vectorlibs/")
+    trained_models_location=os.path.join(str(path_to_source),"doc_classifier_app/outputs/trained_models/")
+    training_files_location=os.path.join(str(path_to_source),"doc_classifier_app/outputs/training_files/")
+    input_location=os.path.join(str(path_to_source),"doc_classifier_app/inputs/")
+
+
+
+print("AT constants", output_results_location)
 
 
 class Sentiment_Model:
