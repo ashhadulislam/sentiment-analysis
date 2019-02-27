@@ -13,6 +13,7 @@ import os
 # Create your views here.
 def index(request):
 	print("hello there")
+	print(os.getcwd())
 	print(constants.output_results_location)
 	print(os.listdir(constants.output_results_location))
 
