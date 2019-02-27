@@ -34,6 +34,9 @@ class Result:
 def get_all_sentiments_from_files(training_files_location,file_name_list):
     sentiments_list=[]
     for file_name in file_name_list:
+        print("name is ",file_name)
+        if ".DS" in file_name:
+            continue
         print(training_files_location+file_name)
         df=pd.read_csv(training_files_location+file_name)
         senti_column=df.columns[2]
@@ -44,6 +47,7 @@ def get_all_sentiments_from_files(training_files_location,file_name_list):
 
 
 def update_context(result_data=None):
+    print("new in update")
     file_name_list=os.listdir(training_files_location)
 
     #till now we were puttiing the names of these files

@@ -112,46 +112,50 @@ def test_model(test_text,test_file_name,test_reference_file,models_list):
 		# 	result[i][model_name]=output[i]
 
 
-	print("After testing result is")
+	print("After testing the result is")
 	print(df_bkp.head())
-	if test_is_a_file:
-		#write to outputs/results
-		print("will write output df to the following location",constants.output_results_location)
-		df_bkp.to_csv(constants.output_results_location+str(test_file_name)+"_results.csv")
+	print("returning")
+	return df_bkp,None,True
+	
 
-		#hold on, we will also write it to an excel
+	# if test_is_a_file:
+	# 	#write to outputs/results
+	# 	print("will write output df to the following location",constants.output_results_location)
+	# 	df_bkp.to_csv(constants.output_results_location+str(test_file_name)+"_results.csv")
 
-		#add the sheet to a list of sheets
-		result_df_list=[]
-		result_df_list.append(df_bkp)
+	# 	#hold on, we will also write it to an excel
 
-		xls_name=constants.output_results_location+ "result.xlsx"
+	# 	#add the sheet to a list of sheets
+	# 	result_df_list=[]
+	# 	result_df_list.append(df_bkp)
+
+	# 	xls_name=constants.output_results_location+ "result.xlsx"
 		
-		from openpyxl import Workbook
-		from openpyxl.utils.dataframe import dataframe_to_rows
+	# 	from openpyxl import Workbook
+	# 	from openpyxl.utils.dataframe import dataframe_to_rows
 		
-		# # create Workbook object
-		wb=Workbook()
-		print("loaded some workbook")
-		sheetnames=["result"]
+	# 	# # create Workbook object
+	# 	wb=Workbook()
+	# 	print("loaded some workbook")
+	# 	sheetnames=["result"]
 
-		for n,dataf in enumerate(result_df_list):
-			print("n is ",n)
-			print(dataf.head())
-			ws=wb.create_sheet(sheetnames[n])
-			for r in dataframe_to_rows(dataf, index=True, header=True):
-				ws.append(r)
+	# 	for n,dataf in enumerate(result_df_list):
+	# 		print("n is ",n)
+	# 		print(dataf.head())
+	# 		ws=wb.create_sheet(sheetnames[n])
+	# 		for r in dataframe_to_rows(dataf, index=True, header=True):
+	# 			ws.append(r)
 
-		print("going to save at",xls_name)
+	# 	print("going to save at",xls_name)
 
-		#remove the default sheet called "sheet"
-		wb.remove(wb.get_sheet_by_name('Sheet'))
-		wb.save(xls_name)
+	# 	#remove the default sheet called "sheet"
+	# 	wb.remove(wb.get_sheet_by_name('Sheet'))
+	# 	wb.save(xls_name)
 
-		print("written to xls")
-		return df_bkp,xls_name,True
+	# 	print("written to xls")
+	# 	return df_bkp,xls_name,True
 
 
 
 	
-	return df_bkp,None,True
+	# return df_bkp,None,True

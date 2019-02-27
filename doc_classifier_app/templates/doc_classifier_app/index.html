@@ -2,7 +2,8 @@
 
 {% block train_content %}
 
-<form action="/train/" method="post" enctype="multipart/form-data">
+<form action="{% url 'doc_classifier_app:train' %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
 
     {% if model_list %}
     Select the model/s that you want to train
