@@ -25,6 +25,20 @@
 {% endblock %}
 
 
+
+{% block create_wordcloud %}
+<form action="{% url 'doc_classifier_app:create_wordcloud' %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <textarea id="text_input" name="text_input" placeholder="Paste Text :)" style="width:300px;height:200px"></textarea></br>
+
+    
+    <button>WordCloud</button>
+</form>
+{% endblock %}
+
+
+
+
 {% block test_content %}
 <form action="{% url 'doc_classifier_app:test' %}" method="post" enctype="multipart/form-data">
     {% csrf_token %}
@@ -64,15 +78,11 @@
 </form>
 {% endblock %}
 
-{% block test_result %}
+<!-- {% block test_result %}
 
 The result</br>
 
 {{result_list | safe}}
 
-
-
-
-
         
-{% endblock %}
+{% endblock %} -->

@@ -11,7 +11,7 @@ vectorlibs_location=os.path.join(str(path_to_source),"doc_classifier_app/outputs
 trained_models_location=os.path.join(str(path_to_source),"doc_classifier_app/outputs/trained_models/")
 training_files_location=os.path.join(str(path_to_source),"doc_classifier_app/outputs/training_files/")
 input_location=os.path.join(str(path_to_source),"doc_classifier_app/inputs/")
-
+word_cloud_image_location=os.path.join(str(path_to_source),"static/")
 
 
 # output_results_location="doc_classifier_app/outputs/results/"

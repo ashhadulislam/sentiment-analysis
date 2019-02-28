@@ -96,6 +96,37 @@ def test(request):
 
 		
 
+from wordcloud import WordCloud
+import matplotlib
+matplotlib.use('TkAgg')
+
+def create_wordcloud(request):
+	print("Going to create_wordcloud")
+
+	test_text = request.POST.get("text_input")
+
+	if test_text is not None:
+		wordcloud = WordCloud().generate(test_text)
+
+		# Display the generated image:
+		# the matplotlib way:
+		import matplotlib.pyplot as plt
+		plt.imshow(wordcloud, interpolation='bilinear')
+		plt.axis("off")
+
+		plt.savefig(constants.word_cloud_image_location+"img.png")
+
+
+
+
+	context={
+	"wordcloud":"<img src=/static/img.png>"
+	}
+	return render(request, 'doc_classifier_app/plot_graph.html', context)
+
+
+
+
 
 
 from django.views.generic import TemplateView
