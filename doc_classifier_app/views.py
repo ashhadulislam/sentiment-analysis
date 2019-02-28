@@ -68,7 +68,13 @@ def test(request):
 
 		print(json_categ)
 
-		
+		print("The result data is ")
+		print(data_result_df.head())
+
+
+		# saving the data frame as csv
+		data_result_df.to_csv(constants.output_results_location+"result.csv")
+		print("saved as ",constants.output_results_location,"result.csv")
 
 		sub_key_SVM=list(json_categ["SVM"].keys())
 		sub_key_NB=list(json_categ["Naive-Bayes"].keys())
@@ -89,6 +95,10 @@ def test(request):
 		"values_SVM": values_SVM,
 		"values_NB": values_NB
 		}
+
+
+		# configure the csv file to be sent
+
 
 		g = Graph() 
 		context = g.get_context_data(graph_vals) 
@@ -116,14 +126,24 @@ def create_wordcloud(request):
 
 		plt.savefig(constants.word_cloud_image_location+"img.png")
 
-
-
+    
 
 	context={
 	"wordcloud":"<img src=/static/img.png>"
 	}
 	return render(request, 'doc_classifier_app/plot_graph.html', context)
 
+from wsgiref.util import FileWrapper
+def get_result_sentiment(request):
+	print("Method is ",request.method)
+	if request.method=="POST":
+		print("At getting")
+		filename = constants.output_results_location+"result.csv"
+		download_name ="out_senti.csv"
+		wrapper = FileWrapper(open(filename))
+		response = HttpResponse(wrapper,content_type='text/csv')
+		response['Content-Disposition'] = "attachment; filename=%s"%download_name
+		return response
 
 
 
@@ -152,7 +172,7 @@ class Graph(TemplateView):
 
 
 		'''
-		print(graph_vals)
+		# print(graph_vals)
 
 		trace1 = go.Bar(
 			x=graph_vals["sub_key_SVM"],
@@ -184,18 +204,16 @@ class Graph(TemplateView):
 
 
 
-		labels = ['Oxygen','Hydrogen','Carbon_Dioxide','Nitrogen']
-		values = [4500,2500,1053,500]
-
-		trace = go.Pie(labels=labels, values=values)
-
+		#this one was an experimental small graph
+		
+		# labels = ['Oxygen','Hydrogen','Carbon_Dioxide','Nitrogen']
+		# values = [4500,2500,1053,500]
+		# trace = go.Pie(labels=labels, values=values)
 		# py.iplot([trace], filename='basic_pie_chart')
-
-		div2 = opy.plot([trace], auto_open=False, output_type='div')
-		print(div2)
-
+		# div2 = opy.plot([trace], auto_open=False, output_type='div')
+		# print(div2)
 		# div2 = opy.plot(fig, auto_open=False, output_type='div')
-		context['graph2'] = div
+		# context['graph2'] = div
 
 		return context
 
