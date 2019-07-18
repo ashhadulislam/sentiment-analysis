@@ -46,17 +46,21 @@ class Result:
 def get_all_sentiments_from_files(training_files_location,file_name_list):
     sentiments_list=[]
     for file_name in file_name_list:
-        print(training_files_location+file_name)
-        df=pd.read_csv(training_files_location+file_name)
-        senti_column=df.columns[2]
-        sentiments=df[senti_column].unique()
-        sentiments_list.append(sentiments)
+        print("going for ",file_name)
+        if ".csv" in file_name:
+            print(training_files_location+file_name)
+            df=pd.read_csv(training_files_location+file_name)
+            senti_column=df.columns[2]
+            sentiments=df[senti_column].unique()
+            sentiments_list.append(sentiments)
 
     return sentiments_list
 
 
 def update_context(result_data=None):
     file_name_list=os.listdir(training_files_location)
+    file_name_list.remove(".DS_Store")
+
 
     #till now we were puttiing the names of these files
     #but now, we are going to put the unique columns in each file as a line
@@ -70,7 +74,10 @@ def update_context(result_data=None):
 
     file_list=[]
     for file_name,sentiments in zip(file_name_list,sentiments_list):
-        file_list.append(Trained_File(file_name,sentiments))
+        print("Going for ",file_name)
+        if ".csv" in file_name:
+            print(file_name,"going to append senti")
+            file_list.append(Trained_File(file_name,sentiments))
 
 
     model_list=[Sentiment_Model("SVM"),Sentiment_Model("Naive-Bayes"),Sentiment_Model("Random forest"),Sentiment_Model("NN"),]

@@ -102,9 +102,31 @@ def test(request):
 
 		g = Graph() 
 		context = g.get_context_data(graph_vals) 
+		data_result_json=get_json_from_df(data_result_df.head(5))
+		context["result"]=data_result_json
+		context["columns"]=data_result_df.columns
+
+
+		print(context.keys())
 		return render(request, 'doc_classifier_app/plot_graph.html', context)
 
-		
+def get_json_from_df(df):
+	df_dict={}
+	cols=df.columns
+	print(cols)
+	counter=0
+	for index,row in df.iterrows():
+		this_list=[]
+		for col in cols:
+			this_list.append(row[col])
+		df_dict[counter]=this_list
+		counter+=1
+	return df_dict
+
+			
+
+
+
 
 from wordcloud import WordCloud
 import matplotlib
@@ -126,7 +148,7 @@ def create_wordcloud(request):
 
 		plt.savefig(constants.word_cloud_image_location+"img.png")
 
-    
+	
 
 	context={
 	"wordcloud":"<img src=/static/img.png>"
