@@ -59,7 +59,8 @@ def get_all_sentiments_from_files(training_files_location,file_name_list):
 
 def update_context(result_data=None):
     file_name_list=os.listdir(training_files_location)
-    file_name_list.remove(".DS_Store")
+    if ".DS_Store" in file_name_list:
+        file_name_list.remove(".DS_Store")
 
 
     #till now we were puttiing the names of these files
